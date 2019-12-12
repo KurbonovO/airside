@@ -1,6 +1,5 @@
 package com.airside.passport.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,15 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class GithubRquestService {
-
-	private UnmarshallingPassportService unmarshallingPassportService;
-
-	@Autowired
-	public GithubRquestService(UnmarshallingPassportService unmarshallingPassportService) {
-
-		this.unmarshallingPassportService = unmarshallingPassportService;
-
-	}
 
 	public String requestToGithubWithName(String fullname) {
 
