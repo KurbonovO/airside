@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.airside.passport.constants.PassportConstants;
 
-
 @Service
 public class UnmarshallingPassportService {
 
@@ -15,13 +14,14 @@ public class UnmarshallingPassportService {
 	public String mainUnmarshallingPassportService(String passportBody) {
 
 		StringBuilder output = new StringBuilder();
+		String surnamePlaceHolder = null;
 
 		if (passportBody != null && !passportBody.isEmpty() && passportBody.length() <= 88) {
 
 			char[] passportBodyInArr = passportBody.toCharArray();
 			int arrStartHolder = 5;
 
-			// Getting the Surname From the loop
+			// Getting the Surname from the loop
 			for (int i = 5; i < passportBodyInArr.length; i++) {
 
 				if (passportBodyInArr[i] == PassportConstants.ONE_FILLER) {
@@ -35,6 +35,8 @@ public class UnmarshallingPassportService {
 					output.append(passportBodyInArr[i]);
 				}
 			}
+
+			surnamePlaceHolder = PassportConstants.EMPTY_SINGE_SPACE + output.toString();
 
 			// Checking to make sure that next two from the passportBodyInArr are two
 			// fillers
@@ -61,7 +63,11 @@ public class UnmarshallingPassportService {
 				}
 			}
 		}
-		return output.toString();
-	}
-}
 
+		output.delete(0, output.indexOf(PassportConstants.EMPTY_SINGE_SPACE));
+		output.append(surnamePlaceHolder);
+
+		return output.toString().trim();
+	}
+
+}
